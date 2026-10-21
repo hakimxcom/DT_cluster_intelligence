@@ -20,7 +20,7 @@ from . import acs, bea, cbp, clusters, findings, naics, prices, qcew, qwi
 from .geography import ROOT, load_config, load_metros
 from .metrics import growth, location_quotient
 from .shift_share import decompose
-from .sources import SOURCES, RetrievalLog, sha256
+from .sources import NOTICES, SOURCES, RetrievalLog, sha256
 from .validation import Report, validate_annual, validate_pairs
 
 SRC_CODE = {"county_sum": "c", "msa_published": "m", "published": "p", "suppressed": "s", "missing": "x"}
@@ -290,6 +290,8 @@ class Builder:
         out = []
         for s in SOURCES:
             entry = {k: s[k] for k in ("id", "name", "publisher", "url", "role", "use", "licence")}
+            if "citation" in s:
+                entry["citation"] = s["citation"]
             attempts = self.log.latest(s["id"])
             ok = [e for e in attempts if e["status"] == "ok"]
             failed = [e for e in attempts if e["status"] != "ok"]
@@ -403,6 +405,7 @@ class Builder:
             },
             "coverage": self.coverage(),
             "sources": sources,
+            "notices": NOTICES,
             "validation": self.report.as_list(),
             "files": files,
         }
@@ -419,11 +422,15 @@ class Builder:
             cov["cbp"] = {"years": self.context["cbp"]["years"], "unit": "establishments; payroll in thousands of current dollars"}
         if "bea" in self.context:
             ys = sorted({r["year"] for v in self.context["bea"]["metros"].values() for r in v})
-            cov["bea"] = {"years": [ys[0], ys[-1]], "unit": "thousands of dollars (current and chained 2017)"}
+            cov["bea"] = {"years": [ys[0], ys[-1]], "unit": "thousands of dollars (current; chained 2017 for states and the U.S. only)"}
         if "acs" in self.context:
             cov["acs"] = {"years": [self.context["acs"]["year"]], "unit": "percent of residents; dollars (nominal)"}
         if "qwi" in self.context:
-            cov["qwi"] = {"years": self.context["qwi"]["years"], "unit": "rates per beginning-of-quarter job; dollars per month"}
+            # Only years with a complete annual value count; a quarter on the
+            # publication edge lacks flow measures and does not make a year.
+            by_metro = {m: [r["year"] for r in v] for m, v in self.context["qwi"]["metros"].items()}
+            cov["qwi"] = {"years": sorted({y for ys in by_metro.values() for y in ys}), "by_metro": by_metro,
+                          "unit": "rates per beginning-of-quarter job; dollars per month"}
         if self.cpi_base:
             cov["cpi"] = {"base_year": self.cpi_base, "series": prices.SERIES}
         return cov

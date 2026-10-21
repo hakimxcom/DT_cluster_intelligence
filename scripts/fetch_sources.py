@@ -112,6 +112,8 @@ def main() -> None:
     ap.add_argument("--contact", required=True, help="email or URL identifying you to BLS/Census")
     ap.add_argument("--start", type=int, default=2014, help="first QCEW year (default 2014)")
     ap.add_argument("--only", default=",".join(ALL), help=f"comma-separated subset of {ALL}")
+    ap.add_argument("--qwi-start", type=int, default=None,
+                    help="first QWI year (default: five years before the latest QCEW year)")
     ap.add_argument("--refresh", action="store_true", help="re-download files that already exist")
     ap.add_argument("--trim-qcew", action="store_true",
                     help="store only the QCEW rows the pipeline uses (smaller files for handing data over)")
@@ -171,7 +173,7 @@ def main() -> None:
 
         if "qwi" in only:
             print("QWI")
-            for year in range(max(args.start, end - 4), end + 1):
+            for year in range(args.qwi_start or max(args.start, end - 4), end + 1):
                 for q in range(1, 5):
                     for st, cs in by_state.items():
                         f.get("qwi", qwi.api_url(year, q, st, cs), RAW / "qwi" / f"{year}_q{q}_{st}.json", census=True)

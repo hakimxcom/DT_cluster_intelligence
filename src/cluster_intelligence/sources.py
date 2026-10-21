@@ -20,6 +20,7 @@ SOURCES: list[dict] = [
         "role": "core", "pipeline": "integrated when retrieved",
         "use": "Private-sector employment, establishments and wages by county, metro, state and nation; location quotients; shift-share.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW), annual averages, data.bls.gov/cew.',
     },
     {
         "id": "cbp", "name": "County Business Patterns (CBP)",
@@ -29,15 +30,17 @@ SOURCES: list[dict] = [
         "role": "core", "pipeline": "integrated when retrieved",
         "use": "Establishment counts by employment-size class and annual payroll, aggregated from counties.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Census Bureau, County Business Patterns, retrieved through the Census Bureau Data API.',
     },
     {
         "id": "bea", "name": "GDP by county and metropolitan area (CAGDP2, CAGDP9)",
         "publisher": "U.S. Bureau of Economic Analysis",
         "url": "https://www.bea.gov/data/by-place-county-metro-local",
-        "access": "https://apps.bea.gov/regional/zip/CAGDP2.zip and CAGDP9.zip",
+        "access": "https://apps.bea.gov/regional/zip/CAGDP2.zip and CAGDP9.zip (county files; BEA publishes no metro GDP table in its download files or API)",
         "role": "core", "pipeline": "integrated when retrieved",
-        "use": "Current-dollar GDP (CAGDP2) and real GDP in chained 2017 dollars (CAGDP9) for metros, states and the nation.",
+        "use": "Current-dollar GDP (CAGDP2) for metros (sum of county estimates), states and the nation; real GDP in chained 2017 dollars (CAGDP9) for states and the nation. Chained-dollar county values are not additive, so no metro real GDP is shown.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Bureau of Economic Analysis, CAGDP2 and CAGDP9, GDP by county (release of February 5, 2026). Metro nominal GDP shown here is this project\'s sum of BEA county estimates, not a BEA-published metro figure.',
     },
     {
         "id": "qwi", "name": "Quarterly Workforce Indicators (QWI)",
@@ -47,6 +50,7 @@ SOURCES: list[dict] = [
         "role": "additional", "pipeline": "integrated when retrieved",
         "use": "Hires, separations, firm job gains and losses, and stable-job earnings for private employers, summed from counties.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Census Bureau, LEHD Quarterly Workforce Indicators, retrieved through the Census Bureau Data API.',
     },
     {
         "id": "acs", "name": "American Community Survey 1-year estimates (ACS)",
@@ -56,6 +60,7 @@ SOURCES: list[dict] = [
         "role": "additional", "pipeline": "integrated when retrieved",
         "use": "Resident educational attainment, household income and working from home, with 90% margins of error.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Census Bureau, American Community Survey 1-year estimates, retrieved through the Census Bureau Data API.',
     },
     {
         "id": "cpi", "name": "Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average",
@@ -65,6 +70,7 @@ SOURCES: list[dict] = [
         "role": "additional", "pipeline": "integrated when retrieved",
         "use": "Deflator for inflation-adjusted wage comparisons (end-year dollars).",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average, all items, series CUUR0000SA0.',
     },
     {
         "id": "delineation", "name": "Core-based statistical area delineation file (July 2023)",
@@ -74,6 +80,7 @@ SOURCES: list[dict] = [
         "role": "core", "pipeline": "used to verify config/geography.json",
         "use": "Authoritative metro county membership.",
         "licence": "U.S. federal government work; public domain in the United States.",
+        "citation": 'U.S. Census Bureau, Core Based Statistical Areas delineation file (list1_2023.xlsx), based on OMB Bulletin No. 23-01 (July 21, 2023).',
     },
     {
         "id": "cluster_mapping", "name": "U.S. Cluster Mapping Project cluster definitions",
@@ -83,6 +90,7 @@ SOURCES: list[dict] = [
         "role": "additional", "pipeline": "integrated only when a verified crosswalk file is supplied",
         "use": "Formal traded/local cluster classification (Delgado, Porter and Stern 2016). Without it the dashboard reports NAICS-sector specialization, not clusters.",
         "licence": "Not a federal work. Terms of use must be checked before redistributing the crosswalk or derived tables.",
+        "citation": 'Delgado, M., Porter, M. E. and Stern, S. (2016), "Defining clusters of related industries", Journal of Economic Geography 16(1): 1-38; U.S. Cluster Mapping Project, Harvard Business School. Not used in this build.',
     },
     {
         "id": "mcda", "name": "Michigan Center for Data and Analytics, labor market information",
@@ -116,6 +124,19 @@ SOURCES: list[dict] = [
         "use": "Ohio and Cleveland-area projections and occupational demand.",
         "licence": "State publication; check terms before redistribution.",
     },
+]
+
+
+# Notices the source terms require wherever the data are displayed.
+# Census: https://www.census.gov/data/developers/about/terms-of-service.html
+# BLS asks to be cited as the source: https://www.bls.gov/bls/linksite.htm
+# BEA's API notice applies only to services that use its API; this pipeline
+# reads BEA's download files, so BEA is cited as a source instead.
+NOTICES = [
+    "This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.",
+    "Source data: U.S. Bureau of Labor Statistics, U.S. Census Bureau and U.S. Bureau of Economic Analysis. "
+    "Aggregations, ratios and decompositions are this project's own calculations; none of these agencies "
+    "has reviewed or endorsed them.",
 ]
 
 
