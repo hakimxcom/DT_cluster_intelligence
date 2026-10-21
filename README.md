@@ -4,7 +4,7 @@ Regional economic intelligence comparing Detroit, Chicago, and Cleveland through
 
 This repository is the **research engine** behind the *Regional Industry & Cluster Intelligence* dashboard on [hakimx.com](https://hakimx.com). It acquires official source data, aggregates it to fixed metropolitan geographies, calculates location quotients, employment growth and shift-share decompositions, validates the results, and produces the compact, checksummed JSON files that the website renders. The website lives in a separate repository, [`hakimxcom/hakimxcom`](https://github.com/hakimxcom/hakimxcom), and contains no analytical code beyond display.
 
-> **Data status:** the pipeline and its tests are complete. This repository does **not yet contain official data**. The build environment it was developed in could not reach BLS, Census or BEA servers, so no official data has been processed and no findings have been published. Run the steps under [Refreshing the data](#refreshing-the-data) on a machine with normal internet access to produce the first real dataset.
+> **Data status:** the dataset in `data/processed/website/` was built from official BLS, Census and BEA files retrieved on 21 October 2026: QCEW 2014–2025, CBP 2023, ACS 2024, QWI through 2024 (Detroit through 2020), BEA GDP through 2024 and CPI-U through 2025. The exact coverage, checksums and validation results are in its `manifest.json`.
 
 ## What it compares
 
@@ -12,9 +12,9 @@ This repository is the **research engine** behind the *Regional Industry & Clust
 |---|---|---|
 | Metro Detroit | 19820 Detroit-Warren-Dearborn, MI | Lapeer, Livingston, Macomb, Oakland, St. Clair, Wayne |
 | Metro Chicago | 16980 Chicago-Naperville-Elgin, IL-IN | Cook, DeKalb, DuPage, Grundy, Kane, Kendall, Lake (IL), McHenry, Will; Jasper, Lake (IN), Newton, Porter |
-| Greater Cleveland | 17460 Cleveland, OH | Ashtabula, Cuyahoga, Geauga, Lake, Lorain, Medina |
+| Greater Cleveland | 17410 Cleveland, OH | Ashtabula, Cuyahoga, Geauga, Lake, Lorain, Medina |
 
-These county lists are in [`config/geography.json`](config/geography.json). They were compiled from the 2023 delineation and cross-checked against secondary references. They have **not yet been machine-verified** against the official Census delineation workbook, because that file could not be downloaded in the development environment. `scripts/verify_geography.py` performs that check and fails on any difference. Every build records the verification result in its manifest.
+These county lists are in [`config/geography.json`](config/geography.json). `scripts/verify_geography.py` checks them against the official Census delineation file (`list1_2023.xlsx`) and fails on any difference; the check passed on 21 October 2026. Each build records the result in its manifest. Cleveland's CBSA code changed from 17460 (Cleveland-Elyria) to 17410 in the 2023 delineation, and BLS changed its QCEW metro code from C1746 to C1741 in 2024; the config records both.
 
 A separate **state context** compares Michigan, Illinois and Ohio. Metro Chicago includes four Indiana counties, so the state panel and the metro panels describe different geographic units.
 
@@ -34,14 +34,16 @@ pip install -e ".[dev]"
 pytest
 ```
 
-The tests are self-contained and need no network access. The end-to-end tests run the full build on a **synthetic** fixture (`tests/fixtures/synthetic_raw.py`). Its numbers are invented to exercise the code paths and are never exported. One test checks the official delineation file and is skipped until that file has been downloaded.
+The tests are self-contained and need no network access. The end-to-end tests run the full build on a **synthetic** fixture (`tests/fixtures/synthetic_raw.py`). Its numbers are invented to exercise the code paths and are never exported. `test_real_formats.py` runs the parsers on small excerpts of the real source files. One test checks the official delineation file and is skipped when that file is not in `data/raw/`.
 
 ## Refreshing the data
 
 ```bash
-# 1. Download raw files (about 400 requests; logged to data/raw/retrieval_log.json)
-python scripts/fetch_sources.py --contact you@example.com
-#    optional: export CENSUS_API_KEY=... first; add --trim-qcew to keep only the rows used
+# 1. Download raw files (about 500 requests; logged to data/raw/retrieval_log.json)
+export CENSUS_API_KEY=...        # free key from https://api.census.gov/data/key_signup.html (required)
+python scripts/fetch_sources.py --contact you@example.com --qwi-start 2017
+#    --contact must be an email address: download.bls.gov rejects requests without one
+#    add --trim-qcew to keep only the QCEW rows the pipeline reads
 
 # 2. Verify the metro county lists against the official delineation file
 python scripts/verify_geography.py
@@ -102,6 +104,10 @@ src/cluster_intelligence/
 tests/                       unit and end-to-end tests
 docs/                        methodology, source inventory, QA report
 ```
+
+## Citation and terms of use
+
+Source data are U.S. federal works. Please cite the agencies as the sources. Every source entry in the manifest carries a `citation`, and the dashboard shows each one. **This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.** Aggregations, ratios and decompositions are this project's own calculations and have not been reviewed or endorsed by BLS, the Census Bureau or BEA. See [Data sources](docs/data_sources.md#citation-and-terms-of-use).
 
 ## Documentation
 

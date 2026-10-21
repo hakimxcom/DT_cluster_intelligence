@@ -84,3 +84,12 @@ def test_fetch_trim_keeps_only_rows_the_pipeline_reads():
     out, detail = fetch_sources.trim_qcew(src)
     assert out.decode().splitlines() == ["area_fips,own_code,industry_code,agglvl_code", "26163,5,10,71"]
     assert "original sha256" in detail
+
+
+def test_required_notices_and_citations():
+    from cluster_intelligence.sources import NOTICES
+    # Census Data API terms of service require this exact notice.
+    assert "This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau." in NOTICES
+    for s in SOURCES:
+        if s["role"] != "local":
+            assert s.get("citation"), s["id"]

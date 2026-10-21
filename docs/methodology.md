@@ -4,7 +4,7 @@
 
 | Dimension | Choice | Reason |
 |---|---|---|
-| Regions | Detroit (CBSA 19820), Chicago (16980), Cleveland (17460), using 2023 OMB delineations | Three large Great Lakes metropolitan economies with manufacturing histories and different degrees of diversification |
+| Regions | Detroit (CBSA 19820), Chicago (16980), Cleveland (17410), using 2023 OMB delineations | Three large Great Lakes metropolitan economies with manufacturing histories and different degrees of diversification |
 | Benchmark | United States | Standard benchmark for location quotients and shift-share |
 | Ownership | Private (QCEW `own_code` 5) for local and national values | Public-sector employment reflects how government is organized more than industrial specialization, and private ownership is the usual scope for LQ and shift-share comparisons |
 | Industries | NAICS sectors (2-digit) and subsectors (3-digit), excluding 99 (unclassified) | Subsectors show specialization that sectors hide (for example, 336 Transportation equipment manufacturing within Manufacturing) |
@@ -17,7 +17,7 @@
 Each metro is the **sum of a fixed county list** (`config/geography.json`) in every year. This keeps the geography constant over time:
 
 - **Chicago:** before 2023 the CBSA was Chicago-Naperville-Elgin, IL-IN-WI and included Kenosha County, WI. Kenosha is excluded in every year.
-- **Cleveland:** under the 2013–2020 delineations the CBSA was Cleveland-Elyria, OH and excluded Ashtabula County. Ashtabula is included in every year.
+- **Cleveland:** under the 2013–2020 delineations the CBSA was 17460 Cleveland-Elyria, OH and excluded Ashtabula County. OMB Bulletin 23-01 replaced it with 17410 Cleveland, OH, which adds Ashtabula. BLS publishes the metro as QCEW area C1746 through 2023 and C1741 from 2024 (`previous_qcew_areas` in `config/geography.json`). Ashtabula is included in every year.
 - **Detroit:** the six-county definition is unchanged across these delineations.
 
 Constant county lists answer the question "how did employment change in today's metro area?" They do not reproduce figures that BLS published under an earlier delineation.
@@ -54,6 +54,8 @@ LQ_{i,r,t} = (E_{i,r,t} / E_{r,t}) / (E_{i,US,t} / E_{US,t})
 ```
 
 All four terms are private ownership in the same year. LQ > 1 means a higher local concentration than the nation. LQ = 1 means the same concentration, and LQ < 1 means a lower one. An LQ describes relative concentration only. It is not evidence of productivity, profitability, competitiveness, resilience or causation. The LQ is undefined (missing) when any term is missing or a denominator is zero.
+
+**Difference from BLS-published LQs.** The `lq_` columns in QCEW files divide an industry's private employment by *all-ownership* total employment, locally and nationally. Here both denominators are private. The two definitions differ by the factor (local private share of all jobs) ÷ (U.S. private share of all jobs). With BLS's base, this pipeline reproduces BLS's 2024 values to the published two decimals (see the QA report, section 7).
 
 ### Employment growth
 
@@ -100,10 +102,10 @@ QCEW publishes each year under the NAICS edition in force at the time: 2012 for 
 
 | Source | What is used | How it is combined |
 |---|---|---|
-| CBP | Establishments by size band (1–19, 20–99, 100–499, 500+ employees), employment, annual payroll | Summed from our county list. Values flagged D (withheld) or S (below standard) are missing. Establishment counts are never withheld |
-| BEA CAGDP2/CAGDP9 | All-industry GDP, current dollars and chained 2017 dollars | Current-dollar GDP is summed from our counties. Chained dollars are not additive, so real GDP comes from BEA's metro row, used only in years when BEA's current-dollar metro row equals our county sum (same delineation) |
+| CBP | Establishments by size band (1–19, 20–99, 100–499, 500+ employees), employment, annual payroll | Summed from our county list. Since 2017 CBP uses noise infusion rather than withholding; `EMP_N`/`PAYANN_N` are noise ranges (all `0` in the files used). Any value flagged D (withheld) or S (below standard) would be missing. Establishment counts are never withheld. Size classes: 210 (<5), 220, 230; 241, 242; 251, 252; 254, 260 (1,000+; its 2022+ sub-classes are not added again). Size bands can sum to slightly less than the all-sizes count |
+| BEA CAGDP2/CAGDP9 | All-industry GDP, current dollars and chained 2017 dollars | Current-dollar GDP is summed from our counties. Chained dollars are not additive, so metro real GDP could only come from a BEA metro row. BEA's current county files, and its API's CAGDP2/CAGDP9 tables, contain no metro rows, so metro real GDP is not shown (`real_gdp_status: metro_not_in_file`). Real GDP is shown for states and the U.S. |
 | ACS 1-year | Bachelor's degree or higher (25+), median household income, working from home, each with a 90% MOE | CBSA and state rows straight from the API. Derived proportions use Census MOE formulas. Comparisons are tested at the 90% level |
-| QWI | Hires, separations, firm job gains and losses (as rates per beginning-of-quarter job), stable-job monthly earnings | Summed from counties across all four quarters. Any county-quarter not flagged as fully published makes the year missing |
+| QWI | Hires, separations, firm job gains and losses (as rates per beginning-of-quarter job), stable-job monthly earnings | Summed from counties across all four quarters. Any county-quarter whose status flag is not `1` (fully published) makes the year missing; the files used contain only `1` and `-1` (value not computable, null). The dashboard compares the latest year complete for all three metros |
 | CPI-U | Annual average index | Wage deflator only |
 
 **Residents versus jobs.** ACS describes people who *live* in an area, wherever they work. QCEW, CBP and QWI describe jobs at establishments *located* in the area. The pipeline never divides one by the other.
