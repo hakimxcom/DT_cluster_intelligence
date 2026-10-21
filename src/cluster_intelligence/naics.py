@@ -5,7 +5,14 @@ not reconvert earlier years: NAICS 2012 for 2012-2016, NAICS 2017 for
 2017-2021 and NAICS 2022 from 2022. Sector (2-digit) definitions are stable
 across these editions. The 2022 edition restructured Retail Trade (44-45) and
 Information (51) at the 3-digit level, so subsectors in those sectors are not
-compared across the 2021/2022 boundary."""
+compared across the 2021/2022 boundary.
+
+Checked on 21 October 2026 against BLS's QCEW revision tables
+(data.bls.gov/cew/apps/bls_naics/naics2022.zip and naics2017.zip, sheet
+"NAICS Comparison Table"): of the 232 NAICS 2017 -> 2022 code mappings, the 145
+that cross a 3-digit boundary are all within 44-45 (125) or 51 (20), and none
+crosses a sector. Of the 32 NAICS 2012 -> 2017 mappings, none crosses a 3-digit
+boundary, so no subsector break is needed in 2017."""
 from __future__ import annotations
 
 SECTOR_TITLES = {

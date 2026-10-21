@@ -111,13 +111,13 @@ def delineation_consistency(data: pd.DataFrame, metro: Metro, years: list[int],
         tot = data[(data["level"] == "total") & (data["industry"] == "10") & (data["year"] == year)]
         county_vals = tot[tot["area"].isin(metro.county_fips)].set_index("area")["emp"]
         county_sum = county_vals.sum() if counties_ok and county_vals.notna().all() and len(county_vals) == len(metro.county_fips) else None
-        pub = tot[tot["area"] == metro.qcew_area]["emp"]
+        pub = tot[tot["area"] == metro.qcew_area_for(year)]["emp"]
         published = float(pub.iloc[0]) if len(pub) and pd.notna(pub.iloc[0]) else None
         rel = None
         if county_sum is not None and published:
             rel = abs(published - county_sum) / county_sum
         out[year] = {
-            "county_sum": county_sum, "published": published, "relative_difference": rel,
+            "qcew_area": metro.qcew_area_for(year), "county_sum": county_sum, "published": published, "relative_difference": rel,
             "consistent": bool(rel is not None and rel <= CONSISTENCY_TOLERANCE),
         }
     return out
@@ -131,7 +131,7 @@ def aggregate_metro(data: pd.DataFrame, metro: Metro, years: list[int],
     for year in years:
         have_all_counties = all((c, year) in loaded for c in metro.county_fips)
         sub = data[(data["year"] == year) & (data["area"].isin(metro.county_fips))]
-        pub = data[(data["year"] == year) & (data["area"] == metro.qcew_area)].set_index(["industry", "level"])
+        pub = data[(data["year"] == year) & (data["area"] == metro.qcew_area_for(year))].set_index(["industry", "level"])
         by_ind = {k: g for k, g in sub.groupby(["industry", "level"])}
         for ind, level in nat[nat["year"] == year][["industry", "level"]].itertuples(index=False):
             g = by_ind.get((ind, level))

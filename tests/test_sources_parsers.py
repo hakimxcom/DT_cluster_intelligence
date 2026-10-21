@@ -37,7 +37,7 @@ def test_cbp_withheld_values_are_missing_and_labels_checked():
             ["3361", "5", "100", "G", "1", "G", "001", "All establishments", "26", "163"]]
     out = cbp.parse_response(rows, 2022)
     assert len(out) == 1 and out[0]["emp"] is None and out[0]["estab"] == 10
-    bad = [head, ["31-33", "10", "5", "G", "1", "G", "212", "Establishments with 1,000 employees or more", "26", "163"]]
+    bad = [head, ["31-33", "10", "5", "G", "1", "G", "210", "Establishments with 1,000 employees or more", "26", "163"]]
     with pytest.raises(ValueError):
         cbp.parse_response(bad, 2022)
 

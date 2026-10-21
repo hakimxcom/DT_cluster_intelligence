@@ -1,26 +1,41 @@
 """County Business Patterns: establishments by size class and payroll.
 
-CBP establishment counts are published for every cell; employment and payroll
-can be withheld or noise-flagged. Values flagged as withheld ("D") or not
-meeting publication standards ("S") are treated as missing, never zero.
+CBP establishment counts are published for every cell. Since 2017 CBP protects
+employment and payroll with noise infusion instead of withholding cells, and the
+API's EMP_N / PAYANN_N variables are noise ranges. In the live 2017, 2022 and
+2023 responses for our states every one of them is "0" and no cell is withheld.
+A value flagged "D" (withheld) or "S" (does not meet publication standards), as
+in the published CBP flag scheme, would still be treated as missing, never zero.
+EMP is employment in the pay period including March 12, so EMP = 0 with
+positive payroll is a reported value, not a suppression.
 Metro values are summed from our county list so the geography is fixed."""
 from __future__ import annotations
 
 # Employment-size classes (EMPSZES) grouped into four bands. The API's
 # EMPSZES_LABEL is checked against these expectations when parsing.
 SIZE_BANDS = {
-    "1-19": {"212": "less than 5", "220": "5 to 9", "230": "10 to 19"},
+    # 210 is "less than 5 employees" in the API (212 is the separate "1 to 4" class).
+    "1-19": {"210": "less than 5", "220": "5 to 9", "230": "10 to 19"},
     "20-99": {"241": "20 to 49", "242": "50 to 99"},
     "100-499": {"251": "100 to 249", "252": "250 to 499"},
+    # 260 is "1,000 or more"; from 2022 the API also returns its sub-classes
+    # 262, 263, 271 and 273, which are not added again.
     "500+": {"254": "500 to 999", "260": "1,000"},
 }
 ALL_SIZES = "001"
 WITHHELD_FLAGS = {"D", "S"}
 
 
+# Checked against the live API: 2017 through 2023 expose only NAICS2017, and
+# 2023 still uses 2017 codes (452, 454 and 511 exist; 455, 459 and 513 do not).
+NAICS_VARS = ("NAICS2017", "NAICS2022")
+
+
 def naics_var(year: int) -> str:
-    """CBP 2017-2022 use NAICS 2017 codes; later years NAICS 2022."""
-    return "NAICS2022" if year >= 2023 else "NAICS2017"
+    """NAICS variable to request. NAICS2017 is verified for 2017-2023. Later
+    years are unverified; if the API renames the variable the request fails
+    and the fetch log records it rather than the parser guessing."""
+    return "NAICS2017" if year <= 2023 else "NAICS2022"
 
 
 def api_url(year: int, state_fips: str, county_codes: list[str]) -> str:
@@ -44,7 +59,10 @@ def _int(v: str | None) -> int | None:
 def parse_response(rows: list[list[str]], year: int) -> list[dict]:
     header, *data = rows
     idx = {h: i for i, h in enumerate(header)}
-    nv = naics_var(year)
+    found = [v for v in NAICS_VARS if v in idx]
+    if len(found) != 1:
+        raise ValueError(f"CBP {year} response has NAICS columns {found}, expected exactly one of {NAICS_VARS}")
+    nv = found[0]
     for col in (nv, "ESTAB", "EMP", "PAYANN", "EMPSZES", "EMPSZES_LABEL", "state", "county"):
         if col not in idx:
             raise ValueError(f"CBP {year} response missing column {col}")
