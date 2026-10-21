@@ -51,7 +51,9 @@ class Fetcher:
             url += f"&key={self.key}"
         for attempt in range(4):
             try:
-                r = self.s.get(url, timeout=120)
+                # The Census API answers a rejected request (e.g. no key) with a
+                # redirect to an HTML page; following it would save HTML as data.
+                r = self.s.get(url, timeout=120, allow_redirects=not census)
             except requests.RequestException as e:
                 msg = str(e)
                 err = f"{type(e).__name__}: " + ("connection refused by the network proxy (403)" if "403" in msg else msg[:160])
@@ -67,6 +69,9 @@ class Fetcher:
                 print(f"  ok     {dest.relative_to(ROOT)} ({len(r.content):,} bytes)")
                 return True
             err = f"HTTP {r.status_code}"
+            if r.is_redirect:
+                err += f" redirect to {r.headers.get('Location', '?')}"
+                break
             if r.status_code in (204, 400, 404):
                 break  # not published (yet); retrying will not help
             time.sleep(2 ** attempt)
