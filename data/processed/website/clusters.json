@@ -1,0 +1,1 @@
+{"status":"not_available","reason":"No verified NAICS-to-cluster crosswalk was supplied (data/external/cluster_crosswalk.csv). Results are reported as NAICS sector and subsector specialization, not formal clusters."}

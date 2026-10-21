@@ -1,0 +1,254 @@
+{
+ "title": "Regional Industry & Cluster Intelligence",
+ "dataset_version": "2026.10.21+d28a6ba",
+ "generated_at": "2026-10-21T16:02:42+00:00",
+ "pipeline": {
+  "repository": "hakimxcom/DT_cluster_intelligence",
+  "commit": "d28a6ba"
+ },
+ "status": "no_data",
+ "years": [],
+ "default_period": null,
+ "ownership": "Private ownership (QCEW own_code 5)",
+ "industry_levels": [
+  "NAICS sector (2-digit)",
+  "NAICS subsector (3-digit)"
+ ],
+ "naics_editions": {},
+ "cpi_base_year": null,
+ "geography": {
+  "delineation": "OMB Bulletin No. 23-01 (July 21, 2023)",
+  "verification": {
+   "status": "not_run"
+  },
+  "metros": [
+   {
+    "id": "detroit",
+    "label": "Metro Detroit",
+    "cbsa_code": "19820",
+    "cbsa_title": "Detroit-Warren-Dearborn, MI",
+    "counties": {
+     "26087": "Lapeer County, MI",
+     "26093": "Livingston County, MI",
+     "26099": "Macomb County, MI",
+     "26125": "Oakland County, MI",
+     "26147": "St. Clair County, MI",
+     "26163": "Wayne County, MI"
+    },
+    "boundary_note": "",
+    "published_metro_consistency": {}
+   },
+   {
+    "id": "chicago",
+    "label": "Metro Chicago",
+    "cbsa_code": "16980",
+    "cbsa_title": "Chicago-Naperville-Elgin, IL-IN",
+    "counties": {
+     "17031": "Cook County, IL",
+     "17037": "DeKalb County, IL",
+     "17043": "DuPage County, IL",
+     "17063": "Grundy County, IL",
+     "17089": "Kane County, IL",
+     "17093": "Kendall County, IL",
+     "17097": "Lake County, IL",
+     "17111": "McHenry County, IL",
+     "17197": "Will County, IL",
+     "18073": "Jasper County, IN",
+     "18089": "Lake County, IN",
+     "18111": "Newton County, IN",
+     "18127": "Porter County, IN"
+    },
+    "boundary_note": "Before the 2023 delineation this CBSA was Chicago-Naperville-Elgin, IL-IN-WI and included Kenosha County, WI (55059). Kenosha is excluded here for every year so the geography is constant over time.",
+    "published_metro_consistency": {}
+   },
+   {
+    "id": "cleveland",
+    "label": "Greater Cleveland",
+    "cbsa_code": "17460",
+    "cbsa_title": "Cleveland, OH",
+    "counties": {
+     "39007": "Ashtabula County, OH",
+     "39035": "Cuyahoga County, OH",
+     "39055": "Geauga County, OH",
+     "39085": "Lake County, OH",
+     "39093": "Lorain County, OH",
+     "39103": "Medina County, OH"
+    },
+    "boundary_note": "Under the 2013-2020 delineations this CBSA was Cleveland-Elyria, OH and excluded Ashtabula County (39007). Ashtabula is included here for every year so the geography is constant over time.",
+    "published_metro_consistency": {}
+   }
+  ],
+  "states": [
+   {
+    "id": "MI",
+    "label": "Michigan",
+    "fips": "26",
+    "qcew_area": "26000"
+   },
+   {
+    "id": "IL",
+    "label": "Illinois",
+    "fips": "17",
+    "qcew_area": "17000"
+   },
+   {
+    "id": "OH",
+    "label": "Ohio",
+    "fips": "39",
+    "qcew_area": "39000"
+   }
+  ]
+ },
+ "coverage": {},
+ "sources": [
+  {
+   "id": "qcew",
+   "name": "Quarterly Census of Employment and Wages (QCEW)",
+   "publisher": "U.S. Bureau of Labor Statistics",
+   "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+   "role": "core",
+   "use": "Private-sector employment, establishments and wages by county, metro, state and nation; location quotients; shift-share.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "No retrieval has been attempted for this build."
+  },
+  {
+   "id": "cbp",
+   "name": "County Business Patterns (CBP)",
+   "publisher": "U.S. Census Bureau",
+   "url": "https://www.census.gov/programs-surveys/cbp.html",
+   "role": "core",
+   "use": "Establishment counts by employment-size class and annual payroll, aggregated from counties.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "No retrieval has been attempted for this build."
+  },
+  {
+   "id": "bea",
+   "name": "GDP by county and metropolitan area (CAGDP2, CAGDP9)",
+   "publisher": "U.S. Bureau of Economic Analysis",
+   "url": "https://www.bea.gov/data/by-place-county-metro-local",
+   "role": "core",
+   "use": "Current-dollar GDP (CAGDP2) and real GDP in chained 2017 dollars (CAGDP9) for metros, states and the nation.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "Last retrieval attempt failed: ProxyError: connection refused by the network proxy (403)"
+  },
+  {
+   "id": "qwi",
+   "name": "Quarterly Workforce Indicators (QWI)",
+   "publisher": "U.S. Census Bureau, LEHD program",
+   "url": "https://lehd.ces.census.gov/data/",
+   "role": "additional",
+   "use": "Hires, separations, firm job gains and losses, and stable-job earnings for private employers, summed from counties.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "No retrieval has been attempted for this build."
+  },
+  {
+   "id": "acs",
+   "name": "American Community Survey 1-year estimates (ACS)",
+   "publisher": "U.S. Census Bureau",
+   "url": "https://www.census.gov/programs-surveys/acs/data/data-tables.html",
+   "role": "additional",
+   "use": "Resident educational attainment, household income and working from home, with 90% margins of error.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "No retrieval has been attempted for this build."
+  },
+  {
+   "id": "cpi",
+   "name": "Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average",
+   "publisher": "U.S. Bureau of Labor Statistics",
+   "url": "https://www.bls.gov/cpi/",
+   "role": "additional",
+   "use": "Deflator for inflation-adjusted wage comparisons (end-year dollars).",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "Last retrieval attempt failed: ProxyError: connection refused by the network proxy (403)"
+  },
+  {
+   "id": "delineation",
+   "name": "Core-based statistical area delineation file (July 2023)",
+   "publisher": "U.S. Census Bureau / Office of Management and Budget",
+   "url": "https://www.census.gov/programs-surveys/metro-micro/about/delineation-files.html",
+   "role": "core",
+   "use": "Authoritative metro county membership.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "status": "not_retrieved",
+   "reason": "Last retrieval attempt failed: ProxyError: connection refused by the network proxy (403)"
+  },
+  {
+   "id": "cluster_mapping",
+   "name": "U.S. Cluster Mapping Project cluster definitions",
+   "publisher": "Harvard Business School, Institute for Strategy and Competitiveness",
+   "url": "https://www.clustermapping.us/",
+   "role": "additional",
+   "use": "Formal traded/local cluster classification (Delgado, Porter and Stern 2016). Without it the dashboard reports NAICS-sector specialization, not clusters.",
+   "licence": "Not a federal work. Terms of use must be checked before redistributing the crosswalk or derived tables.",
+   "status": "not_integrated",
+   "reason": "No verified NAICS-to-cluster crosswalk was supplied (data/external/cluster_crosswalk.csv). Results are reported as NAICS sector and subsector specialization, not formal clusters."
+  },
+  {
+   "id": "mcda",
+   "name": "Michigan Center for Data and Analytics, labor market information",
+   "publisher": "State of Michigan",
+   "url": "https://www.michigan.gov/mcda/labor-market-information",
+   "role": "local",
+   "use": "Michigan industry and occupational projections.",
+   "licence": "State publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "semcog",
+   "name": "SEMCOG data portal",
+   "publisher": "Southeast Michigan Council of Governments",
+   "url": "https://data.semcog.org/",
+   "role": "local",
+   "use": "Southeast Michigan forecasts and planning data. Its seven-county region adds Monroe and Washtenaw and omits Lapeer, so it is not the Detroit MSA.",
+   "licence": "Regional agency publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "cmap",
+   "name": "CMAP Data Hub and regional economy analyses",
+   "publisher": "Chicago Metropolitan Agency for Planning",
+   "url": "https://datahub.cmap.illinois.gov/",
+   "role": "local",
+   "use": "CMAP cluster and job-quality analyses cover its seven-county northeastern Illinois region, which excludes the Indiana counties and DeKalb and Grundy.",
+   "licence": "Regional agency publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "methodological cross-check only. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "ohiolmi",
+   "name": "Ohio Labor Market Information",
+   "publisher": "Ohio Department of Job and Family Services",
+   "url": "https://ohiolmi.com/",
+   "role": "local",
+   "use": "Ohio and Cleveland-area projections and occupational demand.",
+   "licence": "State publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  }
+ ],
+ "validation": [
+  {
+   "check": "qcew_years",
+   "passed": false,
+   "detail": "Fewer than two complete QCEW years in /home/user/DT_cluster_intelligence/data/raw; no comparison possible."
+  }
+ ],
+ "files": {
+  "context.json": {
+   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "bytes": 2
+  },
+  "clusters.json": {
+   "sha256": "64677413ae895bade836fc6dd27f4350c6d1528c09f288c76f0ae0bbd740f9d6",
+   "bytes": 216
+  }
+ }
+}
