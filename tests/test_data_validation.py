@@ -16,7 +16,7 @@ def built(tmp_path_factory):
     root = tmp_path_factory.mktemp("synthetic")
     synthetic_raw.build(root / "raw")
     b = Builder(root / "raw", root / "out", synthetic_raw.YEARS, external_dir=root / "none",
-                generated_at="2026-01-01T00:00:00+00:00")
+                generated_at="2026-01-01T00:00:00+00:00", synthetic=True)
     manifest = b.run()
     return b, manifest, root
 
@@ -106,17 +106,39 @@ def test_findings_generated_from_rules(built):
     assert all(x["rule"] and x["text"] for x in f["findings"])
 
 
+def _untagged_copy(root, tmp_path):
+    # The handoff refuses synthetic data, so test the copy mechanics on an
+    # untagged copy whose manifest checksums are left intact.
+    src = tmp_path / "untagged"
+    shutil.copytree(root / "out" / "website", src)
+    man = json.loads((src / "manifest.json").read_text())
+    man["synthetic_fixture"] = False
+    (src / "manifest.json").write_text(json.dumps(man))
+    return src
+
+
+def test_handoff_refuses_synthetic_fixture(built, tmp_path):
+    _, m, root = built
+    assert m["synthetic_fixture"] is True
+    site = tmp_path / "site"
+    (site / "public").mkdir(parents=True)
+    (site / "wrangler.jsonc").write_text("{}")
+    with pytest.raises(ValueError, match="synthetic"):
+        export(root / "out" / "website", site)
+
+
 def test_handoff_copies_exact_files(built, tmp_path):
     _, m, root = built
     site = tmp_path / "site"
     (site / "public").mkdir(parents=True)
     (site / "wrangler.jsonc").write_text("{}")
-    dest = export(root / "out" / "website", site)
+    src = _untagged_copy(root, tmp_path)
+    dest = export(src, site)
     assert dest == site / WEBSITE_SUBDIR
     copied = sorted(p.relative_to(dest).as_posix() for p in dest.rglob("*.json"))
     assert copied == sorted(set(m["files"]) | {"manifest.json"})
     for name in m["files"]:
-        assert (dest / name).read_bytes() == (root / "out" / "website" / name).read_bytes()
+        assert (dest / name).read_bytes() == (src / name).read_bytes()
 
 
 def test_handoff_rejects_tampered_or_failed_dataset(built, tmp_path):
@@ -129,6 +151,7 @@ def test_handoff_rejects_tampered_or_failed_dataset(built, tmp_path):
     shutil.rmtree(src)
     shutil.copytree(root / "out" / "website", src)
     man = json.loads((src / "manifest.json").read_text())
+    man["synthetic_fixture"] = False
     man["status"] = "failed_validation"
     (src / "manifest.json").write_text(json.dumps(man))
     site = tmp_path / "site"

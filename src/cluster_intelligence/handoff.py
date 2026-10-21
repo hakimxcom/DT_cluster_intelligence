@@ -36,6 +36,8 @@ def export(source: Path, website_repo: Path) -> Path:
     if not (website_repo / "public").is_dir() or not (website_repo / "wrangler.jsonc").exists():
         raise ValueError(f"{website_repo} does not look like the hakimxcom website repository")
     manifest = verify(source)
+    if manifest.get("synthetic_fixture"):
+        raise ValueError("refusing to export a synthetic test fixture to the website")
     if manifest["status"] == "failed_validation":
         raise ValueError("refusing to export a dataset that failed validation")
     dest = website_repo / WEBSITE_SUBDIR
