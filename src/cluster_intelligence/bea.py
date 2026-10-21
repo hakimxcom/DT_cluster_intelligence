@@ -2,9 +2,15 @@
 
 CAGDP2 is current-dollar GDP; CAGDP9 is real GDP in chained 2017 dollars.
 Both report thousands of dollars. Chained-dollar values are not additive, so
-real GDP is taken from BEA's own metro row, and that row is only used when the
-current-dollar county sum for our county list matches BEA's metro row (which
-shows BEA used the same delineation)."""
+real GDP can only come from BEA's own metro row, used when the current-dollar
+county sum for our county list matches it (which shows BEA used the same
+delineation).
+
+The live CAGDP2/CAGDP9 zips (release of 5 February 2026, file
+CAGDP2__ALL_AREAS_2001_2024.csv) contain the nation, states, regions and
+counties but no metropolitan rows, and BEA's download list has no metro zip.
+Nominal metro GDP is therefore always the county sum, and metro real GDP is
+reported as unavailable with ``real_gdp_status`` = "metro_not_in_file"."""
 from __future__ import annotations
 
 import io
@@ -59,16 +65,24 @@ def metro_series(nominal: pd.DataFrame, real: pd.DataFrame, cbsa: str, counties:
         county_vals = n_year[n_year["geo"].isin(counties)]["value"]
         county_sum = county_vals.sum() if len(county_vals) == len(counties) and county_vals.notna().all() else None
         metro_nom = n_year[n_year["geo"] == cbsa]["value"]
-        metro_nom = float(metro_nom.iloc[0]) if len(metro_nom) and pd.notna(metro_nom.iloc[0]) else None
+        has_row = bool(len(metro_nom))
+        metro_nom = float(metro_nom.iloc[0]) if has_row and pd.notna(metro_nom.iloc[0]) else None
         consistent = bool(county_sum is not None and metro_nom is not None and \
             abs(metro_nom - county_sum) / county_sum <= CONSISTENCY_TOLERANCE)
         metro_real = rl[(rl["year"] == year) & (rl["geo"] == cbsa)]["value"]
         metro_real = float(metro_real.iloc[0]) if len(metro_real) and pd.notna(metro_real.iloc[0]) else None
+        if not has_row:
+            status = "metro_not_in_file"
+        elif not consistent:
+            status = "delineation_differs"
+        else:
+            status = "ok" if metro_real is not None else "not_published"
         out.append({
             "year": int(year),
             "gdp_nominal": county_sum,  # additive, so always from our county list
             "gdp_real": metro_real if consistent else None,
-            "delineation_consistent": consistent,
+            "delineation_consistent": consistent if has_row else None,
+            "real_gdp_status": status,
         })
     return out
 

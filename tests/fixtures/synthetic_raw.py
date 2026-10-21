@@ -14,7 +14,7 @@ from pathlib import Path
 
 from cluster_intelligence.geography import load_config, load_metros
 
-YEARS = [2019, 2020, 2021, 2022, 2023]
+YEARS = [2019, 2020, 2021, 2022, 2023, 2024]
 SECTORS = {"23": 40, "31-33": 120, "44-45": 90, "54": 70, "62": 110, "72": 80, "99": 2}
 # subsector -> (sector, share of the sector)
 SUBSECTORS = {"336": ("31-33", 0.4), "332": ("31-33", 0.2), "441": ("44-45", 0.2),
@@ -95,16 +95,18 @@ def build(raw: Path) -> None:
             rows.append([c, "0", "10", "70", "0", year, "A", "", 1, total * 2, 1, 0, 0, 0, 0])  # all-ownership row, ignored
             _write(raw / "qcew" / str(year) / f"{c}.csv", rows)
         for m in metros:
-            # BLS's published metro: Cleveland excludes Ashtabula before 2023 (old delineation).
-            members = [c for c in m.county_fips if not (m.id == "cleveland" and c == "39007" and year < 2023)]
+            # BLS's published metro: through 2023 Cleveland is C1746 (Cleveland-Elyria),
+            # which excludes Ashtabula; from 2024 it is C1741 with Ashtabula.
+            members = [c for c in m.county_fips if not (m.id == "cleveland" and c == "39007" and year <= 2023)]
+            area = m.qcew_area_for(year)
             rows = []
             for ind in ["10"] + sectors + subs:
                 v = sum(values.get((c, ind), 0) for c in members)
                 if v == 0:
                     continue
                 lvl = "41" if ind == "10" else ("44" if ind in sectors else "45")
-                rows.append(_row(m.qcew_area, lvl, ind, year, v))
-            _write(raw / "qcew" / str(year) / f"{m.qcew_area}.csv", rows)
+                rows.append(_row(area, lvl, ind, year, v))
+            _write(raw / "qcew" / str(year) / f"{area}.csv", rows)
         rows = []
         for ind in ["10"] + sectors + subs:
             v = sum(values.get((c, ind), 0) for c in counties) + REST_OF_US * _value("01001", ind if ind != "10" else "23", year)
@@ -127,17 +129,16 @@ def build(raw: Path) -> None:
         for c in cs:
             for code in ["00", "31-33", "62"]:
                 rows.append([code, "1000", "12000", "G", "600000", "G", "001", "All establishments", st, c[2:]])
-                rows.append([code, "600", "0", "", "0", "", "212", "Establishments with less than 5 employees", st, c[2:]])
+                rows.append([code, "600", "0", "", "0", "", "210", "Establishments with less than 5 employees", st, c[2:]])
                 rows.append([code, "300", "0", "", "0", "", "241", "Establishments with 20 to 49 employees", st, c[2:]])
                 rows.append([code, "100", "0", "", "0", "", "260", "Establishments with 1,000 employees or more", st, c[2:]])
         (raw / "cbp").mkdir(parents=True, exist_ok=True)
         (raw / "cbp" / f"2022_{st}.json").write_text(json.dumps(rows))
 
-    # BEA zips: GDP by county, metro, state and nation.
+    # BEA zips: GDP by county, state and nation. Like the real CAGDP files,
+    # they carry no metropolitan rows.
     (raw / "bea").mkdir(parents=True, exist_ok=True)
     geos = {c: 1000.0 + int(c) % 50 for c in counties}
-    for m in metros:
-        geos[m.cbsa_code] = sum(geos[c] for c in m.county_fips)
     for s in cfg["states"]:
         geos[s["fips"] + "000"] = 5000.0
     geos["00000"] = 100000.0

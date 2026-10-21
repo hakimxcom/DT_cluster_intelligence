@@ -42,10 +42,11 @@ def test_suppressed_cells_stay_missing(built):
     b, _, _ = built
     a = b.annual
     cle = a[(a["area"] == "cleveland") & (a["industry"] == "332")].set_index("year")
-    # Ashtabula's cell is suppressed; BLS's pre-2023 Cleveland metro excludes Ashtabula,
-    # so no substitute is valid before 2023.
+    # Ashtabula's cell is suppressed; BLS's Cleveland metro through 2023 (C1746)
+    # excludes Ashtabula, so no substitute is valid before 2024 (C1741).
     assert cle.loc[2019, "source"] == "suppressed" and cle.loc[2019, "emp"] != cle.loc[2019, "emp"]
-    assert cle.loc[2023, "source"] == "msa_published"
+    assert cle.loc[2023, "source"] == "suppressed"
+    assert cle.loc[2024, "source"] == "msa_published"
     chi = a[(a["area"] == "chicago") & (a["industry"] == "336")]
     assert set(chi["source"]) == {"msa_published"}
 
@@ -94,7 +95,7 @@ def test_units_and_periods_declared_for_each_integrated_indicator(built):
     _, m, _ = built
     for key in ("qcew", "cbp", "bea", "acs", "qwi"):
         assert key in m["coverage"] and m["coverage"][key].get("unit")
-    assert m["cpi_base_year"] == 2023
+    assert m["cpi_base_year"] == 2024  # latest QCEW year in the fixture
 
 
 def test_findings_generated_from_rules(built):

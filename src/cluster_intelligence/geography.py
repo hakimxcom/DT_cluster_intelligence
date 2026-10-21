@@ -22,10 +22,23 @@ class Metro:
     states: tuple[str, ...]
     counties: dict[str, str] = field(hash=False)
     boundary_note: str = ""
+    # (area, last_year) pairs for QCEW codes BLS used before the current one.
+    previous_qcew_areas: tuple[tuple[str, int], ...] = ()
 
     @property
     def county_fips(self) -> list[str]:
         return sorted(self.counties)
+
+    @property
+    def qcew_areas(self) -> list[str]:
+        return [self.qcew_area] + [a for a, _ in self.previous_qcew_areas]
+
+    def qcew_area_for(self, year: int) -> str:
+        """The QCEW metro code BLS published for ``year``."""
+        for area, last_year in sorted(self.previous_qcew_areas, key=lambda p: p[1]):
+            if year <= last_year:
+                return area
+        return self.qcew_area
 
 
 def load_config(path: Path = GEOGRAPHY_FILE) -> dict:
@@ -40,6 +53,7 @@ def load_metros(path: Path = GEOGRAPHY_FILE) -> list[Metro]:
             cbsa_title=m["cbsa_title"], qcew_area=m["qcew_area"],
             states=tuple(m["states"]), counties=dict(m["counties"]),
             boundary_note=m.get("boundary_note", ""),
+            previous_qcew_areas=tuple((p["area"], int(p["last_year"])) for p in m.get("previous_qcew_areas", [])),
         )
         for m in cfg["metros"]
     ]
@@ -57,6 +71,9 @@ def check_internal_consistency(metros: list[Metro]) -> None:
             raise ValueError(f"{m.id}: CBSA code {m.cbsa_code!r} is not 5 digits")
         if m.qcew_area != "C" + m.cbsa_code[:4]:
             raise ValueError(f"{m.id}: QCEW area {m.qcew_area} does not match CBSA {m.cbsa_code}")
+        for area, _ in m.previous_qcew_areas:
+            if not (len(area) == 5 and area[0] == "C" and area[1:].isdigit()):
+                raise ValueError(f"{m.id}: previous QCEW area {area!r} is not a C#### metro code")
         allowed = {state_fips[s] for s in m.states}
         for fips in m.counties:
             if not (len(fips) == 5 and fips.isdigit()):

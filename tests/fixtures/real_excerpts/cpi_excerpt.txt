@@ -1,0 +1,6 @@
+series_id        	year	period	       value	footnote_codes
+CUUR0000SA0      	2024	M12	     315.605	
+CUUR0000SA0      	2024	M13	     313.689	
+CUUR0000SA0      	2025	M12	     324.054	
+CUUR0000SA0      	2025	M13	     321.943	
+CUSR0000SA0      	2024	M12	     317.604	

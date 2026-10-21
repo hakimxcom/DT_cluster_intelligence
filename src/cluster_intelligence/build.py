@@ -62,7 +62,8 @@ class Builder:
     def load_qcew(self):
         areas = {"US000": "national"}
         for m in self.metros:
-            areas[m.qcew_area] = "msa"
+            for area in m.qcew_areas:
+                areas[area] = "msa"
             for c in m.county_fips:
                 areas[c] = "county"
         for s in self.cfg["states"]:

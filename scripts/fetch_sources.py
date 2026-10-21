@@ -134,10 +134,9 @@ def main() -> None:
             end = latest_qcew_year(f, args.start)
             f.get("qcew", "https://data.bls.gov/cew/doc/titles/industry/industry_titles.csv",
                   RAW / "qcew" / "industry_titles.csv")
-            areas = [m.qcew_area for m in metros] + [c for m in metros for c in m.county_fips] \
-                + [s["qcew_area"] for s in cfg["states"]] + ["US000"]
+            areas = [c for m in metros for c in m.county_fips] + [s["qcew_area"] for s in cfg["states"]] + ["US000"]
             for year in range(args.start, end + 1):
-                for area in areas:
+                for area in [m.qcew_area_for(year) for m in metros] + areas:
                     f.get("qcew", qcew.area_url(year, area), qcew.raw_path(RAW, year, area))
         end = end or dt.date.today().year - 1
 
