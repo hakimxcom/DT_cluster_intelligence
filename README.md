@@ -55,6 +55,19 @@ python scripts/export_to_website.py --website ../hakimxcom
 
 Step 4 refuses to run if the manifest is missing, if any file's checksum differs from the manifest, or if validation failed. It replaces `public/data/cluster-dashboard/` in the website repository and re-verifies the copied files. Commit the result in the website repository on a branch. Nothing in this repository deploys the website.
 
+### Handing downloaded data to another machine
+
+If the data is downloaded on one computer and the build runs elsewhere (for example in a sandbox without access to government sites), run step 1 with `--trim-qcew`. This keeps only the QCEW rows the pipeline reads, and the original checksums are kept in the retrieval log. Then send the whole `data/raw/` folder, including `retrieval_log.json`, as a zip file or on a throwaway branch:
+
+```bash
+git switch -c raw-data-drop
+git add -f data/raw
+git commit -m "Raw source files for the first build"
+git push -u origin raw-data-drop
+```
+
+Raw files are excluded from the main branch on purpose. Delete the throwaway branch after the build.
+
 When BLS publishes a new QCEW annual release (normally in September), rerun steps 1–4. Existing raw files are kept unless you pass `--refresh`.
 
 ## Outputs
