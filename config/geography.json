@@ -1,0 +1,76 @@
+{
+  "delineation": {
+    "reference": "OMB Bulletin No. 23-01 (July 21, 2023)",
+    "source_url": "https://www.census.gov/programs-surveys/metro-micro/about/delineation-files.html",
+    "file_url": "https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx",
+    "verification": "County lists below must match the official delineation file. `python scripts/verify_geography.py` checks them against data/raw/delineation/list1_2023.xlsx and fails on any difference. Until that check has been run, the manifest records the geography as unverified."
+  },
+  "metros": [
+    {
+      "id": "detroit",
+      "label": "Metro Detroit",
+      "cbsa_code": "19820",
+      "cbsa_title": "Detroit-Warren-Dearborn, MI",
+      "qcew_area": "C1982",
+      "states": ["MI"],
+      "counties": {
+        "26087": "Lapeer County, MI",
+        "26093": "Livingston County, MI",
+        "26099": "Macomb County, MI",
+        "26125": "Oakland County, MI",
+        "26147": "St. Clair County, MI",
+        "26163": "Wayne County, MI"
+      }
+    },
+    {
+      "id": "chicago",
+      "label": "Metro Chicago",
+      "cbsa_code": "16980",
+      "cbsa_title": "Chicago-Naperville-Elgin, IL-IN",
+      "qcew_area": "C1698",
+      "states": ["IL", "IN"],
+      "boundary_note": "Before the 2023 delineation this CBSA was Chicago-Naperville-Elgin, IL-IN-WI and included Kenosha County, WI (55059). Kenosha is excluded here for every year so the geography is constant over time.",
+      "counties": {
+        "17031": "Cook County, IL",
+        "17037": "DeKalb County, IL",
+        "17043": "DuPage County, IL",
+        "17063": "Grundy County, IL",
+        "17089": "Kane County, IL",
+        "17093": "Kendall County, IL",
+        "17097": "Lake County, IL",
+        "17111": "McHenry County, IL",
+        "17197": "Will County, IL",
+        "18073": "Jasper County, IN",
+        "18089": "Lake County, IN",
+        "18111": "Newton County, IN",
+        "18127": "Porter County, IN"
+      }
+    },
+    {
+      "id": "cleveland",
+      "label": "Greater Cleveland",
+      "cbsa_code": "17410",
+      "cbsa_title": "Cleveland, OH",
+      "qcew_area": "C1741",
+      "previous_qcew_areas": [
+        { "area": "C1746", "last_year": 2023, "title": "Cleveland-Elyria, OH (CBSA 17460, 2013-2020 delineations; excludes Ashtabula County)" }
+      ],
+      "states": ["OH"],
+      "boundary_note": "OMB Bulletin 23-01 replaced CBSA 17460 Cleveland-Elyria, OH with CBSA 17410 Cleveland, OH, which adds Ashtabula County (39007). BLS publishes the metro as C1746 through 2023 and C1741 from 2024. Ashtabula is included here for every year so the geography is constant over time.",
+      "counties": {
+        "39007": "Ashtabula County, OH",
+        "39035": "Cuyahoga County, OH",
+        "39055": "Geauga County, OH",
+        "39085": "Lake County, OH",
+        "39093": "Lorain County, OH",
+        "39103": "Medina County, OH"
+      }
+    }
+  ],
+  "states": [
+    { "id": "MI", "label": "Michigan", "fips": "26", "qcew_area": "26000" },
+    { "id": "IL", "label": "Illinois", "fips": "17", "qcew_area": "17000" },
+    { "id": "OH", "label": "Ohio", "fips": "39", "qcew_area": "39000" }
+  ],
+  "benchmark": { "id": "us", "label": "United States", "qcew_area": "US000" }
+}

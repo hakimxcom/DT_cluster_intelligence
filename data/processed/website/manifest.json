@@ -1,0 +1,730 @@
+{
+ "title": "Regional Industry & Cluster Intelligence",
+ "dataset_version": "2026.10.21+e811e89",
+ "generated_at": "2026-10-21T16:51:03+00:00",
+ "synthetic_fixture": false,
+ "pipeline": {
+  "repository": "hakimxcom/DT_cluster_intelligence",
+  "commit": "e811e89"
+ },
+ "status": "complete",
+ "years": [
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "default_period": [
+  2014,
+  2025
+ ],
+ "ownership": "Private ownership (QCEW own_code 5)",
+ "industry_levels": [
+  "NAICS sector (2-digit)",
+  "NAICS subsector (3-digit)"
+ ],
+ "naics_editions": {
+  "2014": "NAICS 2012",
+  "2015": "NAICS 2012",
+  "2016": "NAICS 2012",
+  "2017": "NAICS 2017",
+  "2018": "NAICS 2017",
+  "2019": "NAICS 2017",
+  "2020": "NAICS 2017",
+  "2021": "NAICS 2017",
+  "2022": "NAICS 2022",
+  "2023": "NAICS 2022",
+  "2024": "NAICS 2022",
+  "2025": "NAICS 2022"
+ },
+ "cpi_base_year": 2025,
+ "geography": {
+  "delineation": "OMB Bulletin No. 23-01 (July 21, 2023)",
+  "verification": {
+   "status": "verified",
+   "problems": [],
+   "file": "list1_2023.xlsx",
+   "sha256": "952c4b1e78acbb54e6ec9412434b7602fedacbf021736351a63c181bdb753629",
+   "checked_at": "2026-10-21T16:39:15+00:00"
+  },
+  "metros": [
+   {
+    "id": "detroit",
+    "label": "Metro Detroit",
+    "cbsa_code": "19820",
+    "cbsa_title": "Detroit-Warren-Dearborn, MI",
+    "counties": {
+     "26087": "Lapeer County, MI",
+     "26093": "Livingston County, MI",
+     "26099": "Macomb County, MI",
+     "26125": "Oakland County, MI",
+     "26147": "St. Clair County, MI",
+     "26163": "Wayne County, MI"
+    },
+    "boundary_note": "",
+    "published_metro_consistency": {
+     "2014": true,
+     "2015": true,
+     "2016": true,
+     "2017": true,
+     "2018": true,
+     "2019": true,
+     "2020": true,
+     "2021": true,
+     "2022": true,
+     "2023": true,
+     "2024": true,
+     "2025": false
+    }
+   },
+   {
+    "id": "chicago",
+    "label": "Metro Chicago",
+    "cbsa_code": "16980",
+    "cbsa_title": "Chicago-Naperville-Elgin, IL-IN",
+    "counties": {
+     "17031": "Cook County, IL",
+     "17037": "DeKalb County, IL",
+     "17043": "DuPage County, IL",
+     "17063": "Grundy County, IL",
+     "17089": "Kane County, IL",
+     "17093": "Kendall County, IL",
+     "17097": "Lake County, IL",
+     "17111": "McHenry County, IL",
+     "17197": "Will County, IL",
+     "18073": "Jasper County, IN",
+     "18089": "Lake County, IN",
+     "18111": "Newton County, IN",
+     "18127": "Porter County, IN"
+    },
+    "boundary_note": "Before the 2023 delineation this CBSA was Chicago-Naperville-Elgin, IL-IN-WI and included Kenosha County, WI (55059). Kenosha is excluded here for every year so the geography is constant over time.",
+    "published_metro_consistency": {
+     "2014": false,
+     "2015": false,
+     "2016": false,
+     "2017": false,
+     "2018": false,
+     "2019": false,
+     "2020": false,
+     "2021": false,
+     "2022": false,
+     "2023": false,
+     "2024": true,
+     "2025": false
+    }
+   },
+   {
+    "id": "cleveland",
+    "label": "Greater Cleveland",
+    "cbsa_code": "17410",
+    "cbsa_title": "Cleveland, OH",
+    "counties": {
+     "39007": "Ashtabula County, OH",
+     "39035": "Cuyahoga County, OH",
+     "39055": "Geauga County, OH",
+     "39085": "Lake County, OH",
+     "39093": "Lorain County, OH",
+     "39103": "Medina County, OH"
+    },
+    "boundary_note": "OMB Bulletin 23-01 replaced CBSA 17460 Cleveland-Elyria, OH with CBSA 17410 Cleveland, OH, which adds Ashtabula County (39007). BLS publishes the metro as C1746 through 2023 and C1741 from 2024. Ashtabula is included here for every year so the geography is constant over time.",
+    "published_metro_consistency": {
+     "2014": false,
+     "2015": false,
+     "2016": false,
+     "2017": false,
+     "2018": false,
+     "2019": false,
+     "2020": false,
+     "2021": false,
+     "2022": false,
+     "2023": false,
+     "2024": true,
+     "2025": false
+    }
+   }
+  ],
+  "states": [
+   {
+    "id": "MI",
+    "label": "Michigan",
+    "fips": "26",
+    "qcew_area": "26000"
+   },
+   {
+    "id": "IL",
+    "label": "Illinois",
+    "fips": "17",
+    "qcew_area": "17000"
+   },
+   {
+    "id": "OH",
+    "label": "Ohio",
+    "fips": "39",
+    "qcew_area": "39000"
+   }
+  ]
+ },
+ "coverage": {
+  "qcew": {
+   "years": [
+    2014,
+    2025
+   ],
+   "unit": "jobs (annual average); dollars per week (nominal)"
+  },
+  "cbp": {
+   "years": [
+    2017,
+    2022,
+    2023
+   ],
+   "unit": "establishments; payroll in thousands of current dollars"
+  },
+  "bea": {
+   "years": [
+    2001,
+    2024
+   ],
+   "unit": "thousands of dollars (current; chained 2017 for states and the U.S. only)"
+  },
+  "acs": {
+   "years": [
+    2024
+   ],
+   "unit": "percent of residents; dollars (nominal)"
+  },
+  "qwi": {
+   "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "by_metro": {
+    "detroit": [
+     2017,
+     2018,
+     2019,
+     2020
+    ],
+    "chicago": [
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024
+    ],
+    "cleveland": [
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024
+    ]
+   },
+   "unit": "rates per beginning-of-quarter job; dollars per month"
+  },
+  "cpi": {
+   "base_year": 2025,
+   "series": "CUUR0000SA0"
+  }
+ },
+ "sources": [
+  {
+   "id": "qcew",
+   "name": "Quarterly Census of Employment and Wages (QCEW)",
+   "publisher": "U.S. Bureau of Labor Statistics",
+   "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+   "role": "core",
+   "use": "Private-sector employment, establishments and wages by county, metro, state and nation; location quotients; shift-share.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW), annual averages, data.bls.gov/cew.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:42:17+00:00"
+  },
+  {
+   "id": "cbp",
+   "name": "County Business Patterns (CBP)",
+   "publisher": "U.S. Census Bureau",
+   "url": "https://www.census.gov/programs-surveys/cbp.html",
+   "role": "core",
+   "use": "Establishment counts by employment-size class and annual payroll, aggregated from counties.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Census Bureau, County Business Patterns, retrieved through the Census Bureau Data API.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:42:22+00:00"
+  },
+  {
+   "id": "bea",
+   "name": "GDP by county and metropolitan area (CAGDP2, CAGDP9)",
+   "publisher": "U.S. Bureau of Economic Analysis",
+   "url": "https://www.bea.gov/data/by-place-county-metro-local",
+   "role": "core",
+   "use": "Current-dollar GDP (CAGDP2) for metros (sum of county estimates), states and the nation; real GDP in chained 2017 dollars (CAGDP9) for states and the nation. Chained-dollar county values are not additive, so no metro real GDP is shown.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Bureau of Economic Analysis, CAGDP2 and CAGDP9, GDP by county (release of February 5, 2026). Metro nominal GDP shown here is this project's sum of BEA county estimates, not a BEA-published metro figure.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:30:03+00:00"
+  },
+  {
+   "id": "qwi",
+   "name": "Quarterly Workforce Indicators (QWI)",
+   "publisher": "U.S. Census Bureau, LEHD program",
+   "url": "https://lehd.ces.census.gov/data/",
+   "role": "additional",
+   "use": "Hires, separations, firm job gains and losses, and stable-job earnings for private employers, summed from counties.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Census Bureau, LEHD Quarterly Workforce Indicators, retrieved through the Census Bureau Data API.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:49:10+00:00"
+  },
+  {
+   "id": "acs",
+   "name": "American Community Survey 1-year estimates (ACS)",
+   "publisher": "U.S. Census Bureau",
+   "url": "https://www.census.gov/programs-surveys/acs/data/data-tables.html",
+   "role": "additional",
+   "use": "Resident educational attainment, household income and working from home, with 90% margins of error.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Census Bureau, American Community Survey 1-year estimates, retrieved through the Census Bureau Data API.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:42:24+00:00"
+  },
+  {
+   "id": "cpi",
+   "name": "Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average",
+   "publisher": "U.S. Bureau of Labor Statistics",
+   "url": "https://www.bls.gov/cpi/",
+   "role": "additional",
+   "use": "Deflator for inflation-adjusted wage comparisons (end-year dollars).",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average, all items, series CUUR0000SA0.",
+   "status": "integrated",
+   "retrieved_at": "2026-10-21T16:35:59+00:00"
+  },
+  {
+   "id": "delineation",
+   "name": "Core-based statistical area delineation file (July 2023)",
+   "publisher": "U.S. Census Bureau / Office of Management and Budget",
+   "url": "https://www.census.gov/programs-surveys/metro-micro/about/delineation-files.html",
+   "role": "core",
+   "use": "Authoritative metro county membership.",
+   "licence": "U.S. federal government work; public domain in the United States.",
+   "citation": "U.S. Census Bureau, Core Based Statistical Areas delineation file (list1_2023.xlsx), based on OMB Bulletin No. 23-01 (July 21, 2023).",
+   "status": "used_for_verification",
+   "retrieved_at": "2026-10-21T16:28:47+00:00"
+  },
+  {
+   "id": "cluster_mapping",
+   "name": "U.S. Cluster Mapping Project cluster definitions",
+   "publisher": "Harvard Business School, Institute for Strategy and Competitiveness",
+   "url": "https://www.clustermapping.us/",
+   "role": "additional",
+   "use": "Formal traded/local cluster classification (Delgado, Porter and Stern 2016). Without it the dashboard reports NAICS-sector specialization, not clusters.",
+   "licence": "Not a federal work. Terms of use must be checked before redistributing the crosswalk or derived tables.",
+   "citation": "Delgado, M., Porter, M. E. and Stern, S. (2016), \"Defining clusters of related industries\", Journal of Economic Geography 16(1): 1-38; U.S. Cluster Mapping Project, Harvard Business School. Not used in this build.",
+   "status": "not_integrated",
+   "reason": "No verified NAICS-to-cluster crosswalk was supplied (data/external/cluster_crosswalk.csv). Results are reported as NAICS sector and subsector specialization, not formal clusters."
+  },
+  {
+   "id": "mcda",
+   "name": "Michigan Center for Data and Analytics, labor market information",
+   "publisher": "State of Michigan",
+   "url": "https://www.michigan.gov/mcda/labor-market-information",
+   "role": "local",
+   "use": "Michigan industry and occupational projections.",
+   "licence": "State publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "semcog",
+   "name": "SEMCOG data portal",
+   "publisher": "Southeast Michigan Council of Governments",
+   "url": "https://data.semcog.org/",
+   "role": "local",
+   "use": "Southeast Michigan forecasts and planning data. Its seven-county region adds Monroe and Washtenaw and omits Lapeer, so it is not the Detroit MSA.",
+   "licence": "Regional agency publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "cmap",
+   "name": "CMAP Data Hub and regional economy analyses",
+   "publisher": "Chicago Metropolitan Agency for Planning",
+   "url": "https://datahub.cmap.illinois.gov/",
+   "role": "local",
+   "use": "CMAP cluster and job-quality analyses cover its seven-county northeastern Illinois region, which excludes the Indiana counties and DeKalb and Grundy.",
+   "licence": "Regional agency publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "methodological cross-check only. Its geography and definitions differ from the standardized cross-metro comparison."
+  },
+  {
+   "id": "ohiolmi",
+   "name": "Ohio Labor Market Information",
+   "publisher": "Ohio Department of Job and Family Services",
+   "url": "https://ohiolmi.com/",
+   "role": "local",
+   "use": "Ohio and Cleveland-area projections and occupational demand.",
+   "licence": "State publication; check terms before redistribution.",
+   "status": "not_integrated",
+   "reason": "context only; not merged into the cross-metro comparison. Its geography and definitions differ from the standardized cross-metro comparison."
+  }
+ ],
+ "notices": [
+  "This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.",
+  "Source data: U.S. Bureau of Labor Statistics, U.S. Census Bureau and U.S. Bureau of Economic Analysis. Aggregations, ratios and decompositions are this project's own calculations; none of these agencies has reviewed or endorsed them."
+ ],
+ "validation": [
+  {
+   "check": "no_duplicate_area_industry_year",
+   "passed": true,
+   "detail": "0 duplicate rows"
+  },
+  {
+   "check": "suppressed_not_zero",
+   "passed": true,
+   "detail": "1972 suppressed/missing metro cells; 0 carry an employment value"
+  },
+  {
+   "check": "totals_present",
+   "passed": true,
+   "detail": "0 area-years without total private employment"
+  },
+  {
+   "check": "sectors_within_total",
+   "passed": true,
+   "detail": "0 area-years where sectors exceed the total; largest unclassified gap 0.40%"
+  },
+  {
+   "check": "unclassified_gap_small",
+   "passed": true,
+   "detail": "largest gap between total and sector sum 0.40% (limit 2%)"
+  },
+  {
+   "check": "lq_plausible",
+   "passed": true,
+   "detail": "LQ range 0.000–5.079"
+  },
+  {
+   "check": "us_lq_equals_one",
+   "passed": true,
+   "detail": "U.S. benchmark LQ must be exactly 1"
+  },
+  {
+   "check": "shift_share_reconciles",
+   "passed": true,
+   "detail": "0 failed decompositions; largest relative residual 9.47e-16 (tolerance 1e-06)"
+  },
+  {
+   "check": "no_pct_from_zero_base",
+   "passed": true,
+   "detail": "0 growth rates computed from a zero or missing base"
+  },
+  {
+   "check": "naics_revision_flagged",
+   "passed": true,
+   "detail": "2496 industry-period cells withheld because NAICS definitions changed"
+  }
+ ],
+ "files": {
+  "annual.json": {
+   "sha256": "3a656e962458382c13256f5018efa3bcbb16db134a44040b0ce2251cd68ce1db",
+   "bytes": 234129
+  },
+  "pairs/2014-2015.json": {
+   "sha256": "dc459145cec834b8783fcb199f5696be7d1126d324f7770266efa0688d22aa3d",
+   "bytes": 24173
+  },
+  "pairs/2014-2016.json": {
+   "sha256": "f6c21780c4581b75522061d37b18143f57bf49ddba89e4f4a0ce141c1ddb55a5",
+   "bytes": 24260
+  },
+  "pairs/2014-2017.json": {
+   "sha256": "0ac215459c9d4db95fd7fe09b519135e9b22f0703d3c15c3cbf356d93e392506",
+   "bytes": 24466
+  },
+  "pairs/2014-2018.json": {
+   "sha256": "38bbf64fd7fe3a74841f1a48f35154e7d04b0f9a6fc3f5428a2ce231ce7709b5",
+   "bytes": 24524
+  },
+  "pairs/2014-2019.json": {
+   "sha256": "62e389be184e699f437aa68879bb385b9788d48b0de8f505fae42c16127c5619",
+   "bytes": 24608
+  },
+  "pairs/2014-2020.json": {
+   "sha256": "2537c5945b3207aa27dc4aff9de06c4497959a407d68e53bf190d277beb0a42a",
+   "bytes": 24774
+  },
+  "pairs/2014-2021.json": {
+   "sha256": "481f8cebb5dee87dcc6c460f7afdbe35327f41686a500c13380549019d967d1e",
+   "bytes": 24857
+  },
+  "pairs/2014-2022.json": {
+   "sha256": "0162c3b0d3202af37d5ede513fc74e6f035ebdd567f6156d6a8a781af213e5c0",
+   "bytes": 25072
+  },
+  "pairs/2014-2023.json": {
+   "sha256": "ef63c10ccf37f9f3fd3a4de7f10ea7a4b14b4ac21ee81c57a05b05cec7b9a1f2",
+   "bytes": 25112
+  },
+  "pairs/2014-2024.json": {
+   "sha256": "da21ba61f9648f5bc869b4994e8e41d5c101533c34fadd604beb42c5dc952e76",
+   "bytes": 25411
+  },
+  "pairs/2014-2025.json": {
+   "sha256": "ae798abfe1715fd3a71a65db370fa2d374e00bb4b18221d5c5a2347c9a9e7968",
+   "bytes": 25447
+  },
+  "pairs/2015-2016.json": {
+   "sha256": "5f325f89effefc04136ed07f023a46bccb837d4ce60fd09a629f25e9a8e6737d",
+   "bytes": 24057
+  },
+  "pairs/2015-2017.json": {
+   "sha256": "cd43fc3cfb91ab64ea3773e26b4e1f9021676b97fb146868d9d582af6683ae12",
+   "bytes": 24306
+  },
+  "pairs/2015-2018.json": {
+   "sha256": "9a647d480e69559c1cd2c7d84eda8e0fc34d808cdb9834b653444df0950fcf6b",
+   "bytes": 24505
+  },
+  "pairs/2015-2019.json": {
+   "sha256": "19a4f0a6a99d1cd39b83b191daedb1263f51f1f7f8c965523c7e04dac851b559",
+   "bytes": 24588
+  },
+  "pairs/2015-2020.json": {
+   "sha256": "80739b6233038532b208f317d78efd8a0d4476de94cbeb29ee78e25e549e81fb",
+   "bytes": 24795
+  },
+  "pairs/2015-2021.json": {
+   "sha256": "d27db540ea24b8c4b1a997bcf668d86edc4dfaf5c8c9a7ccc7e5864787e3ff70",
+   "bytes": 24843
+  },
+  "pairs/2015-2022.json": {
+   "sha256": "e3d95e12ce2627ae8d367d85cf27866054ca8746addd4aa330c3a8039b74f5ca",
+   "bytes": 25058
+  },
+  "pairs/2015-2023.json": {
+   "sha256": "8ef4aaf31da6d18b6bdf6a2c4e2cd0fbcd242813cf17a806eb4fb6d0e0e86c8e",
+   "bytes": 25084
+  },
+  "pairs/2015-2024.json": {
+   "sha256": "cbc7465cbfa0e466b50d84ee0a5b10dd283163b0fbacc769a1c0e2fa7f30a8a5",
+   "bytes": 25387
+  },
+  "pairs/2015-2025.json": {
+   "sha256": "dd82940cff119e85742d94e23e17229f62a5275ca2fb1f968fcfed2b4575db55",
+   "bytes": 25479
+  },
+  "pairs/2016-2017.json": {
+   "sha256": "4491bc7655402dc338724a73ad3b66d15dbb2c583cdb12d543c31fa216138e1e",
+   "bytes": 24035
+  },
+  "pairs/2016-2018.json": {
+   "sha256": "c6edd507819953628361678085ce9883453a904f1bf9b33542454ed5788910a1",
+   "bytes": 24255
+  },
+  "pairs/2016-2019.json": {
+   "sha256": "6cd29e1dc51df56d03c6b6964d40a140e5bfa5ccbabad4899f5901e1c03cf8d9",
+   "bytes": 24413
+  },
+  "pairs/2016-2020.json": {
+   "sha256": "a52aa463bdee6d0a5824b991760ad4a4a1844bcb448ed97ab7e8bea152bab063",
+   "bytes": 24848
+  },
+  "pairs/2016-2021.json": {
+   "sha256": "e330ba288418ddb09624e1ecb5aee27d845ae3cc647f20e699f43c96b4b7372c",
+   "bytes": 24714
+  },
+  "pairs/2016-2022.json": {
+   "sha256": "dac38b6f031cd4093e10a2ba6fddb28ddb0e48df498cf59f44b7818194039736",
+   "bytes": 24940
+  },
+  "pairs/2016-2023.json": {
+   "sha256": "b4541c78a2130cc3feb43ad6087d1509a079f5cd5d469775b7bf75572037cb3c",
+   "bytes": 25005
+  },
+  "pairs/2016-2024.json": {
+   "sha256": "d2fa4f51d061c7cfa7099402679b4612412a954aca8a9945f1be3f4c104d7a4f",
+   "bytes": 25361
+  },
+  "pairs/2016-2025.json": {
+   "sha256": "d8d9c9ae0df04bcd6b841c7925d06f8a685d2c129c325849fd6074a2177ede72",
+   "bytes": 25392
+  },
+  "pairs/2017-2018.json": {
+   "sha256": "2f3e2e7b3b7dfd67eae6bd4e8202be51e86fd3f36c1ae8b76f54e7a981d73da4",
+   "bytes": 24084
+  },
+  "pairs/2017-2019.json": {
+   "sha256": "bb120da431463878a017396f74c51c0c7f7bb5ff6f12fe79d3493ac8cbb9ba37",
+   "bytes": 24328
+  },
+  "pairs/2017-2020.json": {
+   "sha256": "afd7f8bd709cacb5bcb4cb1ed04eb139c44460aa9aea8b4709ba4a6b8eb01378",
+   "bytes": 24890
+  },
+  "pairs/2017-2021.json": {
+   "sha256": "6fcb809d245081925f8b5099ad224e177117709e4b050bed600866ecf4225208",
+   "bytes": 24584
+  },
+  "pairs/2017-2022.json": {
+   "sha256": "529de92d6436fa528fac3ceb5a8622ef9bac188d7005879fd8d00383461290fd",
+   "bytes": 24948
+  },
+  "pairs/2017-2023.json": {
+   "sha256": "faa0d5b00750e38f69e1801289f21e001ab05551a1f94d126ff30b91fcb7050b",
+   "bytes": 25023
+  },
+  "pairs/2017-2024.json": {
+   "sha256": "55d280d2a2245b8fdda0f92b46750a9e58d67c49a635331c56b1189af87b8d1b",
+   "bytes": 25364
+  },
+  "pairs/2017-2025.json": {
+   "sha256": "47d702b38ab53f9adb4b027e77796ccc9705ad0a5d2031a4ae9657ef8191d7ae",
+   "bytes": 25411
+  },
+  "pairs/2018-2019.json": {
+   "sha256": "6508d19bf0ff1524c474828901c26872d234b7e81f3c41c217dfc42f7a93bacf",
+   "bytes": 24058
+  },
+  "pairs/2018-2020.json": {
+   "sha256": "0571b5658f4d5cead3ee22553e676fea288a330e037f4f27e526b36d21e8c026",
+   "bytes": 24947
+  },
+  "pairs/2018-2021.json": {
+   "sha256": "041d626f6c2d548148217b17248df5094d736e3f59fbb683587ea2a0d0342d4e",
+   "bytes": 24828
+  },
+  "pairs/2018-2022.json": {
+   "sha256": "a8c235d0215e482de8e37664f8b193dbb2d44276ce39abbccc7080d5ee6f83e8",
+   "bytes": 24936
+  },
+  "pairs/2018-2023.json": {
+   "sha256": "8c4158d6d779692284aaed31aa6dc7e0e86774cfbbc324ebe89543990d503643",
+   "bytes": 24997
+  },
+  "pairs/2018-2024.json": {
+   "sha256": "c8cf208858f24f66eac2307d6723c4c7fa3fedd44d2f2fdfb056df03a65baaa6",
+   "bytes": 25363
+  },
+  "pairs/2018-2025.json": {
+   "sha256": "3d22735b59bffbf736605e02dc72567688f0d89f0aaa0090aff48038095dacdb",
+   "bytes": 25432
+  },
+  "pairs/2019-2020.json": {
+   "sha256": "4e7f3e1623f647953b47ab294a0b35160b3d5035597e42fc421e630cf3999fd9",
+   "bytes": 24920
+  },
+  "pairs/2019-2021.json": {
+   "sha256": "119ed2289cf2e39790fceacae433abc9dc1180c8d718cc571a1877a7ab16fb1e",
+   "bytes": 24887
+  },
+  "pairs/2019-2022.json": {
+   "sha256": "01cd5f6c0b90ddfe4f4f725685a62ab792a002f5525c7d5df450a15e54c061a2",
+   "bytes": 24806
+  },
+  "pairs/2019-2023.json": {
+   "sha256": "b259059872d4a27e312f66cbcc7766b200c218b23466e9806889ff8791ee8563",
+   "bytes": 24877
+  },
+  "pairs/2019-2024.json": {
+   "sha256": "88d9995e7d21dab7c4250ff3f07169d5b3c2b98982e18e6edd392e67d6a2f1e2",
+   "bytes": 25306
+  },
+  "pairs/2019-2025.json": {
+   "sha256": "401e15b52da42c7f4470f06ece14322de6de16f6b7e3381a8990cd090cf32d66",
+   "bytes": 25414
+  },
+  "pairs/2020-2021.json": {
+   "sha256": "3ec829b6289aa74be2fff3edb8def6a8ea28091a641bf5415c6d32ff84a96a2b",
+   "bytes": 24260
+  },
+  "pairs/2020-2022.json": {
+   "sha256": "7f816d26e2c11a96d19c85dc4869924af0d5028822cf5432faf8fd0d485ceebd",
+   "bytes": 24680
+  },
+  "pairs/2020-2023.json": {
+   "sha256": "6c779b544a22ad869f0e52e3d9713769a20218bd884afc763f2089b03bcadf0c",
+   "bytes": 24814
+  },
+  "pairs/2020-2024.json": {
+   "sha256": "91e899cc1c95fb31aadfbfe04f153176ce4eb8a14d452e6da1f3f816bfbeceb7",
+   "bytes": 25203
+  },
+  "pairs/2020-2025.json": {
+   "sha256": "6d6309183997f51a801d9e74996f9b8ef882a4df9d8bb216119c675a69f3515e",
+   "bytes": 25355
+  },
+  "pairs/2021-2022.json": {
+   "sha256": "be9f248f3fbd2122841e1296a12f76fe447f07838f6694886a78ce60cee2a004",
+   "bytes": 24545
+  },
+  "pairs/2021-2023.json": {
+   "sha256": "e1645088494fefe5485fea90b52fe58f69955bff4908142e955db4359135a020",
+   "bytes": 24693
+  },
+  "pairs/2021-2024.json": {
+   "sha256": "2a9d9d97502dfe117e7a4339ac2438fd9bffaa236ca998778c04311c9490c98e",
+   "bytes": 25167
+  },
+  "pairs/2021-2025.json": {
+   "sha256": "60bb90ee308ae2460ea08a1cb99b5e2a240bb3795fac99324257b14283d8e5a2",
+   "bytes": 25351
+  },
+  "pairs/2022-2023.json": {
+   "sha256": "1b2c4bba89aff208f6fdb612ad36bbbaf9c02d164050c4c18252455d3c4319e9",
+   "bytes": 24117
+  },
+  "pairs/2022-2024.json": {
+   "sha256": "3ac721f15a0c1bf8d2c54f1ca391f21a7845d5a0367c2befac5b7b81ff16ff43",
+   "bytes": 24839
+  },
+  "pairs/2022-2025.json": {
+   "sha256": "1a6aaddaba3fdd35d365d8070697c6a1ae5ecb814a74f8bb56287a87e037f872",
+   "bytes": 25025
+  },
+  "pairs/2023-2024.json": {
+   "sha256": "7e0214cf740b1bc688056955213023e4c05cdb5b404420a243099a977620d4e6",
+   "bytes": 24700
+  },
+  "pairs/2023-2025.json": {
+   "sha256": "f6ac9efbeaeedfe4fab75fc0cb9c283a64c052e3d385f0aa58700c03ad9d034f",
+   "bytes": 24940
+  },
+  "pairs/2024-2025.json": {
+   "sha256": "c5f9f246f499637d05e4a12ef519c56568a6e97223d0b2269ca22d7611c90308",
+   "bytes": 24799
+  },
+  "findings.json": {
+   "sha256": "3eecb1639e7694b8323ceb2847414cfad8accaaea3316775ac3e2a4a9c8ea53d",
+   "bytes": 6609
+  },
+  "context.json": {
+   "sha256": "2f9bc583ed511f4888f733428dcf1bcd52aab1be1b81ce4ed8ee5a806d582a5c",
+   "bytes": 50977
+  },
+  "clusters.json": {
+   "sha256": "64677413ae895bade836fc6dd27f4350c6d1528c09f288c76f0ae0bbd740f9d6",
+   "bytes": 216
+  }
+ }
+}
