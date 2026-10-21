@@ -43,8 +43,9 @@ def _git_commit(path: Path) -> str | None:
 
 class Builder:
     def __init__(self, raw_dir: Path, out_dir: Path, years: list[int], external_dir: Path | None = None,
-                 generated_at: str | None = None):
+                 generated_at: str | None = None, synthetic: bool = False):
         self.raw = Path(raw_dir)
+        self.synthetic = synthetic
         self.out = Path(out_dir)
         self.web = self.out / "website"
         self.years_requested = years
@@ -363,6 +364,7 @@ class Builder:
                                       for m, t in rec["totals"].items()}}
                 dump(f"pairs/{key}.json", compact)
             dump("findings.json", {"period": f"{self.years[0]}–{self.years[-1]}", "rules": findings.RULES,
+                                   "scope": "Rules are applied to NAICS sectors and 3-digit subsectors together, so a subsector can appear alongside its parent sector. QCEW private ownership.",
                                    "findings": self.findings})
             # Full tidy tables for researchers.
             self.out.mkdir(parents=True, exist_ok=True)
@@ -380,6 +382,7 @@ class Builder:
             "title": "Regional Industry & Cluster Intelligence",
             "dataset_version": self.generated_at[:10].replace("-", ".") + "+" + (_git_commit(ROOT) or "nogit"),
             "generated_at": self.generated_at,
+            "synthetic_fixture": self.synthetic,
             "pipeline": {"repository": "hakimxcom/DT_cluster_intelligence", "commit": _git_commit(ROOT)},
             "status": "complete" if has_data and self.report.ok else ("failed_validation" if has_data else "no_data"),
             "years": self.years,
