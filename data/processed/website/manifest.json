@@ -1,10 +1,11 @@
 {
  "title": "Regional Industry & Cluster Intelligence",
- "dataset_version": "2026.10.21+6f8f96e",
- "generated_at": "2026-10-21T16:11:14+00:00",
+ "dataset_version": "2026.10.21+c0ed4d6",
+ "generated_at": "2026-10-21T16:17:52+00:00",
+ "synthetic_fixture": false,
  "pipeline": {
   "repository": "hakimxcom/DT_cluster_intelligence",
-  "commit": "6f8f96e"
+  "commit": "c0ed4d6"
  },
  "status": "no_data",
  "years": [],
