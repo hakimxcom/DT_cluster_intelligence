@@ -1,6 +1,8 @@
 # Cluster dashboard QA report
 
-Date: 21 October 2026. Dataset `2026.10.21+e811e89` (pipeline commit `e811e89`), status **complete**. Website branch: `claude/elegant-lamport-6du6qw` in `hakimxcom/hakimxcom`.
+Date: 21 October 2026, dataset rebuilt 22 October 2026. Dataset `2026.10.22+1083a0d` (pipeline commit `1083a0d`), status **complete**. Published on hakimx.com from `main` in `hakimxcom/hakimxcom`.
+
+**Rebuild note (22 October 2026).** The commit history of both repositories was rewritten so that every commit is authored by `h-hakim`; file contents did not change. Because the dataset version names a pipeline commit, the sources were downloaded again and the dataset rebuilt from the rewritten history. Every figure is identical to the first build, `2026.10.21+e811e89`: `annual.json`, all period files and `findings.json` match byte for byte. The one difference is that CBP 2022, a leftover of the first run that the dashboard never displayed, is no longer loaded; CBP 2023, which the dashboard shows, is unchanged. The section 1 retrieval counts describe the first run.
 
 ## Summary
 
@@ -10,7 +12,7 @@ Date: 21 October 2026. Dataset `2026.10.21+e811e89` (pipeline commit `e811e89`),
 | Geography | **Verified** against the official delineation file `list1_2023.xlsx` (sha256 `952c4b1e…3629`). Cleveland's CBSA code corrected from 17460 to 17410 (section 3) |
 | Validation | All 10 checks pass (section 5) |
 | Tests | `pytest`: 74 passed, 0 skipped. Browser: 86/86 (section 6) |
-| Dataset on the website | `2026.10.21+e811e89`, exported with checksum verification |
+| Dataset on the website | `2026.10.22+1083a0d`, exported with checksum verification |
 
 ## 1. Sources retrieved and verified
 
@@ -80,7 +82,7 @@ BLS's published metro total matches our county set in these years: Detroit 2014�
 | Source | Years in this dataset |
 |---|---|
 | QCEW (employment, establishments, wages, LQ, shift-share) | 2014–2025 annual averages |
-| CBP | 2023 shown (2017 and 2022 also loaded) |
+| CBP | 2023 shown (2017 also loaded) |
 | BEA GDP | 2001–2024: nominal for metros (county sums), states and the U.S.; real for states and the U.S. |
 | ACS 1-year | 2024 |
 | QWI | Chicago and Cleveland 2017–2024; Detroit 2017–2020. The dashboard shows 2020, the latest year common to all three |

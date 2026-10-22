@@ -1,11 +1,11 @@
 {
  "title": "Regional Industry & Cluster Intelligence",
- "dataset_version": "2026.10.21+e811e89",
- "generated_at": "2026-10-21T16:51:03+00:00",
+ "dataset_version": "2026.10.22+1083a0d",
+ "generated_at": "2026-10-22T11:50:05+00:00",
  "synthetic_fixture": false,
  "pipeline": {
   "repository": "hakimxcom/DT_cluster_intelligence",
-  "commit": "e811e89"
+  "commit": "1083a0d"
  },
  "status": "complete",
  "years": [
@@ -53,7 +53,7 @@
    "problems": [],
    "file": "list1_2023.xlsx",
    "sha256": "952c4b1e78acbb54e6ec9412434b7602fedacbf021736351a63c181bdb753629",
-   "checked_at": "2026-10-21T16:39:15+00:00"
+   "checked_at": "2026-10-22T11:50:05+00:00"
   },
   "metros": [
    {
@@ -183,7 +183,6 @@
   "cbp": {
    "years": [
     2017,
-    2022,
     2023
    ],
    "unit": "establishments; payroll in thousands of current dollars"
@@ -258,7 +257,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW), annual averages, data.bls.gov/cew.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:42:17+00:00"
+   "retrieved_at": "2026-10-22T11:48:52+00:00"
   },
   {
    "id": "cbp",
@@ -270,7 +269,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Census Bureau, County Business Patterns, retrieved through the Census Bureau Data API.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:42:22+00:00"
+   "retrieved_at": "2026-10-22T11:49:02+00:00"
   },
   {
    "id": "bea",
@@ -282,7 +281,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Bureau of Economic Analysis, CAGDP2 and CAGDP9, GDP by county (release of February 5, 2026). Metro nominal GDP shown here is this project's sum of BEA county estimates, not a BEA-published metro figure.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:30:03+00:00"
+   "retrieved_at": "2026-10-22T11:49:04+00:00"
   },
   {
    "id": "qwi",
@@ -294,7 +293,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Census Bureau, LEHD Quarterly Workforce Indicators, retrieved through the Census Bureau Data API.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:49:10+00:00"
+   "retrieved_at": "2026-10-22T11:49:30+00:00"
   },
   {
    "id": "acs",
@@ -306,7 +305,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Census Bureau, American Community Survey 1-year estimates, retrieved through the Census Bureau Data API.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:42:24+00:00"
+   "retrieved_at": "2026-10-22T11:49:05+00:00"
   },
   {
    "id": "cpi",
@@ -318,7 +317,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average, all items, series CUUR0000SA0.",
    "status": "integrated",
-   "retrieved_at": "2026-10-21T16:35:59+00:00"
+   "retrieved_at": "2026-10-22T11:49:31+00:00"
   },
   {
    "id": "delineation",
@@ -330,7 +329,7 @@
    "licence": "U.S. federal government work; public domain in the United States.",
    "citation": "U.S. Census Bureau, Core Based Statistical Areas delineation file (list1_2023.xlsx), based on OMB Bulletin No. 23-01 (July 21, 2023).",
    "status": "used_for_verification",
-   "retrieved_at": "2026-10-21T16:28:47+00:00"
+   "retrieved_at": "2026-10-22T11:47:44+00:00"
   },
   {
    "id": "cluster_mapping",
@@ -719,8 +718,8 @@
    "bytes": 6609
   },
   "context.json": {
-   "sha256": "2f9bc583ed511f4888f733428dcf1bcd52aab1be1b81ce4ed8ee5a806d582a5c",
-   "bytes": 50977
+   "sha256": "e5d1e6f9f418f0cd93c5a77d208ff8dce8d574f2b8a911f55c97aadf04c888cd",
+   "bytes": 42250
   },
   "clusters.json": {
    "sha256": "64677413ae895bade836fc6dd27f4350c6d1528c09f288c76f0ae0bbd740f9d6",
